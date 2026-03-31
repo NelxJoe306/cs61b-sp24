@@ -16,7 +16,7 @@ public class MapExercisesTest {
     @Order(0)
     @DisplayName("Test letterToNumber correctness")
     public void testLetterToNum() {
-        Map<Character, Integer> map = MapExercises.letterToNum();
+        Map<Character, Integer> map = JavaExercises.letterToNum();
 
         assertThat(map.size()).isEqualTo(26);
         for (int i = 0; i < 26; i++) {
@@ -30,7 +30,7 @@ public class MapExercisesTest {
     public void testSquares() {
         List<Integer> lst = List.of(1, 3, 6, 7);
 
-        Map<Integer, Integer> map = MapExercises.squares(lst);
+        Map<Integer, Integer> map = JavaExercises.squares(lst);
         assertThat(map).containsExactly(
             1, 1,
             3, 9,
@@ -50,7 +50,7 @@ public class MapExercisesTest {
             "cs61b"
         );
 
-        Map<String, Integer> map = MapExercises.countWords(lst);
+        Map<String, Integer> map = JavaExercises.countword(lst);
 
         assertThat(map).containsExactly(
             "hug", 4,

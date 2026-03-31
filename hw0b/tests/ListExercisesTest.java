@@ -19,8 +19,8 @@ public class ListExercisesTest {
         List<Integer> lst1 = List.of(1, 2, 3, 4);
         List<Integer> lst2 = new ArrayList<>();
 
-        assertThat(ListExercises.sum(lst1)).isEqualTo(10);
-        assertThat(ListExercises.sum(lst2)).isEqualTo(0);
+        assertThat(JavaExercises.sum(lst1)).isEqualTo(10);
+        assertThat(JavaExercises.sum(lst2)).isEqualTo(0);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class ListExercisesTest {
         List<Integer> lst = List.of(1, 2, 3, 4, 5, 6);
         List<Integer> lstExpected = List.of(2, 4, 6);
 
-        List<Integer> res = ListExercises.evens(lst);
+        List<Integer> res = JavaExercises.evens(lst);
 
         assertThat(res).isEqualTo(lstExpected);
     }
@@ -44,8 +44,8 @@ public class ListExercisesTest {
         List<Integer> lst3 = new ArrayList<>();
         List<Integer> lstExpected = List.of(4, 5, 6);
 
-        List<Integer> res1 = ListExercises.common(lst1, lst2);
-        List<Integer> res2 = ListExercises.common(lst2, lst3);
+        List<Integer> res1 = JavaExercises.common(lst1, lst2);
+        List<Integer> res2 = JavaExercises.common(lst2, lst3);
 
         assertThat(res1).isEqualTo(lstExpected);
         assertThat(res2).isEmpty();
@@ -57,8 +57,8 @@ public class ListExercisesTest {
     public void testCountOccurrencesOfC() {
         List<String> lst = List.of("hello", "world", "welcome");
 
-        assertThat(ListExercises.countOccurrencesOfC(lst, 'o')).isEqualTo(3);
-        assertThat(ListExercises.countOccurrencesOfC(lst, 'a')).isEqualTo(0);
+        assertThat(JavaExercises.countOccurrenceOfC(lst, 'o')).isEqualTo(3);
+        assertThat(JavaExercises.countOccurrenceOfC(lst, 'a')).isEqualTo(0);
     }
 
 }
