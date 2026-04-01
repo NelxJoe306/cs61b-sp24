@@ -85,6 +85,15 @@ public class Model {
      * */
     public boolean emptySpaceExists() {
         // TODO: Task 2. Fill in this function.
+        Tile t;
+        for (int x = 0; x<board.size() ; x++){
+            for (int y = 0; y<board.size(); y++){
+                t=board.tile(x,y);
+                if (t == null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -95,6 +104,17 @@ public class Model {
      */
     public boolean maxTileExists() {
         // TODO: Task 3. Fill in this function.
+         Tile t;
+        for (int x = 0; x<board.size() ; x++){
+            for (int y = 0; y<board.size(); y++){
+                t=board.tile(x,y);
+                if (t == null){
+                    continue;
+                }else if(t.value()==MAX_PIECE){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -106,6 +126,33 @@ public class Model {
      */
     public boolean atLeastOneMoveExists() {
         // TODO: Fill in this function.
+        // if any empty space exists
+        Tile t1;
+        Tile t2;
+        for (int x = 0; x<board.size(); x++) {
+            for (int y = 0; y < board.size(); y++) {
+                t1 = board.tile(x, y);
+                if (t1 == null) {
+                    return true;
+                }else if (y<board.size()-1){
+                    t2 = board.tile(x,y+1);
+                    if (t1.value()== t2.value()){
+                        return true;
+                    }
+                }
+            }
+        }
+        for (int y = 0; y<board.size() ; y++) {
+            for (int x = 0; x < board.size(); x++) {
+                t1 = board.tile(x, y);
+                if (x<board.size()-1){
+                    t2 = board.tile(x+1,y);
+                    if (t1.value()== t2.value()){
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -129,6 +176,21 @@ public class Model {
         int targetY = y;
 
         // TODO: Tasks 5, 6, and 10. Fill in this function.
+        // task 5
+        Tile roadT = null;
+        for (int a = targetY + 1; a < board.size(); a++) {
+            roadT = board.tile(x, a);
+            if (roadT != null) {
+                if (!roadT.wasMerged() && myValue == roadT.value()) {
+                    board.move(x, a, currTile);
+                } else if (roadT.wasMerged() || myValue != roadT.value()) {
+                    board.move(x, a - 1, currTile);
+                }
+            }
+            if(a== board.size()-1 && roadT ==null){
+                board.move(x,a,currTile);
+            }
+        }
     }
 
     /** Handles the movements of the tilt in column x of the board
