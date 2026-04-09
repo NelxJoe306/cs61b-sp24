@@ -63,7 +63,7 @@ public class LinkedListDeque61BTest {
         LinkedListDeque61B<Integer> l = new LinkedListDeque61B<>();
         l.addFirst(1);
         l.addFirst(2);
-        assertThat(l.sential.next.item).isEqualTo(2);
+        assertThat(l.get(1)).isEqualTo(2);
     }
 
     @Test

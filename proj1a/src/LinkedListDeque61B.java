@@ -3,7 +3,7 @@ import java.util.List;
 
 public class LinkedListDeque61B<T> implements Deque61B<T> {
     int size = 0;
-    public Node sential;
+    private Node sential;
 
     public class Node {
         Node prev;
@@ -63,7 +63,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public T removeFirst() {
-        if (isEmpty()){
+        if (isEmpty()) {
             return null;
         }
         T x = sential.next.item;
@@ -74,7 +74,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public T removeLast() {
-        if (isEmpty()){
+        if (isEmpty()) {
             return null;
         }
         T x = sential.prev.item;
@@ -104,13 +104,13 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         if (index > size) {
             return null;
         }
-            T x = recursiveGet(sential,index);
-            return x;
+        T x = recursiveGet(sential, index);
+        return x;
     }
-    public T recursiveGet(Node currnode,int index){
-        if (index==0){
+    public T recursiveGet(Node currnode, int index) {
+        if (index == 0) {
             return currnode.item;
         }
-        return recursiveGet(currnode.next, index-1);
+        return recursiveGet(currnode.next, index - 1);
     }
 }
