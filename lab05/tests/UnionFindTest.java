@@ -86,6 +86,35 @@ public class UnionFindTest {
      * of all methods in your implementation.
      */
 
+    @Test
+    public void testParents(){
+        UnionFind uf = new UnionFind(10);
+        uf.union(0, 1);
+        assertThat(uf.parent(0)).isEqualTo(1);
+        uf.union(2, 3);
+        uf.union(0, 2);
+        assertThat(uf.parent(1)).isEqualTo(3);
+    }
+
+    @Test
+    public void testPAthCompass(){
+        UnionFind uf = new UnionFind(10);
+        uf.union(0, 1);
+        assertThat(uf.parent(0)).isEqualTo(1);
+        uf.union(2, 3);
+        uf.union(0, 2);
+        assertThat(uf.parent(0)).isEqualTo(3);
+
+        uf.union(4, 5);
+        uf.union(6, 7);
+        uf.union(8, 9);
+        uf.union(4, 8);
+        uf.union(4, 6);
+
+        for (int i = 4; i < 9; i++) {
+            assertThat(uf.parent(i)).isEqualTo(9);
+        }
+    }
 }
 
 
