@@ -1,9 +1,13 @@
+
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 
 public class ArrayDeque61B<T> implements Deque61B<T> {
     private int size;
-    private int arrSize = 8;
+    int arrSize = 8;
     private int nextFirst;
     private int nextLast;
     private T[] arr;
@@ -60,7 +64,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             size += 1;
         } else {
             resize(size);
-            addFirst(x);
+            addLast(x);
         }
     }
 
@@ -98,6 +102,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             arr[nextFirst + 1] = null;
             nextFirst += 1;
         }
+        size -= 1;
         return some;
     }
 
@@ -116,6 +121,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             arr[nextLast - 1] = null;
             nextLast -= 1;
         }
+        size -= 1;
         return some;
     }
 
@@ -132,4 +138,32 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     public T getRecursive(int index) {
         throw new UnsupportedOperationException("No need to implement getRecursive for proj 1b");
     }
+
+
+
+    @Override
+    public boolean equals(Object other){
+        if (this == other) { return true; }
+        if (other instanceof ArrayDeque61B<?> o) {
+            if (o.size != this.size) {
+                return false;
+            }
+
+            for (int i = 0; i < arrSize; i++) {
+                if (this.get(i) != o.get(i)) {
+                    return false;
+                }
+            }
+            return true;
+
+        }
+        return false;
+    }
+
+    @Override
+    public String toString(){
+        return toList().toString();
+    }
+
+
 }
