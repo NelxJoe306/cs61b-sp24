@@ -114,4 +114,50 @@ public class TestBSTMap {
         assertThat(b.get("b")).isEqualTo("provolone");
     }
 
+    @Test
+    public void putTest() {
+        BSTMap<String,Integer> b = new BSTMap<>();
+        b.put("r", 0);
+        b.put("rootRight", 2);
+        assertThat(b.get("r")).isEqualTo(0);
+        assertThat(b.get("rootRight")).isEqualTo(2);
+    }
+
+    @Test
+    public void getTest() {
+        BSTMap<String, String> b = new BSTMap<>();
+        b.put("d", "parmesan");
+        b.put("a", "mozzarella");
+        b.put("c", "swiss");
+        b.put("b", "pepper jack");
+        b.put("e", "gouda");
+        assertThat(b.get("f")).isEqualTo(null);
+        assertThat(b.get("c")).isEqualTo(("swiss"));
+        assertThat(b.get("d")).isEqualTo(("parmesan"));
+    }
+
+    @Test
+    public void containKeyTest(){
+        BSTMap<String, String> b = new BSTMap<>();
+        b.put("d", "parmesan");
+        b.put("a", "mozzarella");
+        b.put("c", "swiss");
+        b.put("b", "pepper jack");
+        b.put("e", "gouda");
+        assertThat(b.containsKey("e")).isTrue();
+        assertThat(b.containsKey("f")).isFalse();
+    }
+
+    @Test
+    public void clearTest(){
+        BSTMap<String, String> b = new BSTMap<>();
+        b.put("d", "parmesan");
+        b.put("a", "mozzarella");
+        b.put("c", "swiss");
+        b.put("b", "pepper jack");
+        b.put("e", "gouda");
+        b.clear();
+        assertThat(b.containsKey("d")).isFalse();
+        assertThat(b.containsKey("b")).isFalse();
+    }
 }
