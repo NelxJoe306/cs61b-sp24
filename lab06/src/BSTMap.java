@@ -8,8 +8,6 @@ public class BSTMap<k extends Comparable<k>, v> implements Map61B<k, v> {
         v value;
         Node left;
         Node right;
-        Node parent;
-
 
         Node(k K, v V) {
             key = K;
