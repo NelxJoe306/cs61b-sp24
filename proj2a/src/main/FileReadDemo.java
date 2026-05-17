@@ -2,6 +2,8 @@ package main;
 
 import edu.princeton.cs.algs4.In;
 
+import java.util.Arrays;
+
 import static utils.Utils.*;
 
 public class FileReadDemo {
@@ -16,7 +18,9 @@ public class FileReadDemo {
             System.out.println(nextLine);
             System.out.print("After splitting on tab characters, the first word is: ");
             String[] splitLine = nextLine.split("\t");
-            System.out.println(splitLine[0]);
+            System.out.println(Arrays.toString(splitLine));
+
+
         }
     }
 }

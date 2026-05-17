@@ -132,14 +132,12 @@ public class TimeSeriesTest {
         // test divided by (1992 -> 2.0, 1994 -> 5)
         TimeSeries t1 = new TimeSeries(catPopulation, 1992, 1994);
         t1.remove(1993);
-        TimeSeries ts1 = catPopulation.dividedBy(t1);
+        TimeSeries ts1 = t1.dividedBy(catPopulation);
         List<Double> L1 = ts1.data();
-        assertThat(L1).containsExactly(0.0, 1.0, 0.0, 1.0, 2.0);
+        assertThat(L1).containsExactly(1.0, 1.0);
 
         TimeSeries cat = new TimeSeries();
         TimeSeries t2 = cat.dividedBy(t1);
         assertThat(t2).isEmpty();
-
-
     }
 } 

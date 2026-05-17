@@ -2,7 +2,6 @@ package ngrams;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -68,16 +67,20 @@ public class TimeSeries extends TreeMap<Integer, Double> {
         TimeSeries t = this;
         if (this.isEmpty() && ts.isEmpty()) {
             return t;
+        } else if (this.isEmpty()) {
+            return ts;
+        } else if (ts.isEmpty()) {
+            return t;
         }
         int startYear = Math.min(this.firstKey(), ts.firstKey());
-        int endyear = Math.max (this.lastKey(), ts.lastKey());
-        for (int i = startYear; i<= endyear; i++) {
+        int endyear = Math.max(this.lastKey(), ts.lastKey());
+        for (int i = startYear; i <= endyear; i++) {
             if (this.containsKey(i) && ts.containsKey(i)) {
                 t.put(i, this.get(i) + ts.get(i));
-            } else if (this.containsKey(i) && !ts.containsKey(i) ) {
+            } else if (this.containsKey(i) && !ts.containsKey(i)) {
                 t.put(i, this.get(i));
 
-            }else if (!this.containsKey(i) && ts.containsKey(i) ) {
+            } else if (!this.containsKey(i) && ts.containsKey(i)) {
                 t.put(i, ts.get(i));
             }
         }
@@ -95,17 +98,18 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * If TS has a year that is not in this TimeSeries, ignore it.
      */
     public TimeSeries dividedBy(TimeSeries ts) {
-
         TimeSeries t = this;
         if (this.isEmpty() || ts.isEmpty()) {
             return t;
         }
         int startYear = Math.min(this.firstKey(), ts.firstKey());
-        int endyear = Math.max (this.lastKey(), ts.lastKey());
-        for (int i = startYear; i<= endyear; i++) {
+        int endyear = Math.max(this.lastKey(), ts.lastKey());
+        for (int i = startYear; i <= endyear; i++) {
             if (this.containsKey(i) && ts.containsKey(i)) {
                 t.put(i, this.get(i) / ts.get(i));
-            } else if (!this.containsKey(i) && ts.containsKey(i) ) {
+            } else if (!this.containsKey(i) && ts.containsKey(i)) {
+                continue;
+            } else if (this.containsKey(i) && !ts.containsKey(i)) {
                 throw new IllegalArgumentException();
             }
         }

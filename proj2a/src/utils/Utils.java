@@ -4,7 +4,7 @@ package utils;
  *  level as "src".
  */
 public class Utils {
-    private static final String PREFIX = "./data/ngrams/";
+    private static final String PREFIX = "data/ngrams/";
 
     public static final String TOP_14337_WORDS_FILE = PREFIX + "top_14377_words.csv";
 
@@ -14,6 +14,6 @@ public class Utils {
 
     public static final String SHORT_WORDS_FILE = PREFIX + "very_short.csv";
     public static final String TOTAL_COUNTS_FILE = PREFIX + "total_counts.csv";
-
+    public static final String STARTED_WITH_Q_FILE = PREFIX + "words_that_start_with_q.csv";
 }
 
