@@ -46,7 +46,7 @@ public abstract class NgordnetQueryHandler implements Route {
             k = 0;
         }
 
-        return new browser.NgordnetQuery(words, startYear, endYear, k);
+        return new browser.NgordnetQuery(words, startYear, endYear, k, browser.NgordnetQueryType.HYPONYMS);
     }
 
     @Override

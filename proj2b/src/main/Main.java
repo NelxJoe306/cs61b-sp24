@@ -1,6 +1,7 @@
 package main;
 
 import browser.NgordnetServer;
+import graph.HyponymsHelper;
 import org.slf4j.LoggerFactory;
 
 public class Main {
@@ -12,11 +13,11 @@ public class Main {
 
         String synsetFile = "./data/wordnet/synsets.txt";
         String hyponymFile = "./data/wordnet/hyponyms.txt";
-
+        HyponymsHelper hhp = new HyponymsHelper(hyponymFile,synsetFile);
         hns.startUp();
         hns.register("history", new DummyHistoryHandler());
         hns.register("historytext", new DummyHistoryTextHandler());
-        hns.register("hyponyms", new HyponymsHandler());
+        hns.register("hyponyms", new HyponymsHandler(hhp));
 
         System.out.println("Finished server startup! Visit http://localhost:4567/ngordnet.html");
     }
