@@ -31,7 +31,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
-        if(ts==null) {
+        if (ts == null) {
             return;
         }
         this.putAll(ts.subMap(startYear, true, endYear, true));
@@ -41,7 +41,6 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * Returns all years for this TimeSeries (in any order).
      */
     public List<Integer> years() {
-
         List<Integer> l = new ArrayList<>(this.keySet());
         return l;
     }
@@ -66,7 +65,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * should store the value from the TimeSeries that contains that year.
      */
     public TimeSeries plus(TimeSeries ts) {
-        TimeSeries t = this;
+        TimeSeries t = new TimeSeries();
+        t.putAll(this);
         if (this.isEmpty() && ts.isEmpty()) {
             return t;
         } else if (this.isEmpty()) {
@@ -100,7 +100,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * If TS has a year that is not in this TimeSeries, ignore it.
      */
     public TimeSeries dividedBy(TimeSeries ts) {
-        TimeSeries t = this;
+        TimeSeries t = new TimeSeries();
+        t.putAll(this);
         if (this.isEmpty() || ts.isEmpty()) {
             return t;
         }

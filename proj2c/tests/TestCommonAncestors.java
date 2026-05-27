@@ -9,7 +9,9 @@ import ngrams.NGramMap;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -41,9 +43,10 @@ public class TestCommonAncestors {
     public void testInvsMap() {
         wordNetGraph g = new wordNetGraph("./data/wordnet/hypoTest.txt");
         System.out.print(g.invsList.toString()+"\n");
+        Set<Integer> v = new LinkedHashSet<>();
         HyponymsHelper hhp = new HyponymsHelper("./data/wordnet/hypoTest.txt", "./data/wordnet/synsetTest.txt");
-        System.out.print(hhp.grpInTraversalOfIDs(6));
-        System.out.print(hhp.grpInTraversalOfIDs(0));
+        System.out.print(hhp.grpInTraversalOfIDs(6, v));
+        System.out.print(hhp.grpInTraversalOfIDs(0, v));
     }
     @Test
     public void testInTra() {

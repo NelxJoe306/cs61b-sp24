@@ -55,13 +55,14 @@ public class TestGraph {
 
     @Test
     public void testTraId() {
-        String hypof = "./data/wordnet/hyponyms11.txt";
-        String synF = "./data./wordnet/synsets11.txt";
+        String hypof = "./scr/data/wordnet/hyponyms11.txt";
+        String synF = "./scr/data/wordnet/synsets11.txt";
         HyponymsHelper hhp = new HyponymsHelper(hypof, synF);
-        List<Integer> l = hhp.grpTraversalOfIDs(0);
+        Set<Integer> v = new LinkedHashSet<>();
+        List<Integer> l = hhp.grpTraversalOfIDs(0, v);
         assertThat(l).containsExactly(0,1,2);
 
-        l = hhp.grpTraversalOfIDs(5);
+        l = hhp.grpTraversalOfIDs(5, v);
         assertThat(l).containsExactly(5,6,7);
     }
     @Test

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class wordNetGraph {
     private final Map<Integer, List<Integer>> adjList;
-    public final Map<Integer, Integer> invsList;
+    public final Map<Integer, List<Integer>> invsList;
 
     public wordNetGraph(String hyponymsFilename) {
         adjList = new HashMap<>();
@@ -38,16 +38,22 @@ public class wordNetGraph {
     }
 
 
-    public Integer getAncestors(int v) {
-        return invsList.getOrDefault(v, -1);
+    public List<Integer> getAncestors(int v) {
+        return invsList.getOrDefault(v, List.of(-1));
     }
 
     // build an inverse map
-    private Map<Integer, Integer> invs(Map<Integer, List<Integer>> map) {
-        Map<Integer, Integer> result = new HashMap<>();
+    private Map<Integer, List<Integer>> invs(Map<Integer, List<Integer>> map) {
+        Map<Integer, List<Integer>> result = new HashMap<>();
         for (int l : map.keySet()) {
             for (int n : map.get(l)) {
-                result.put(n, l);
+                if (!result.containsKey(n)) {
+                    List<Integer> s = new ArrayList<>();
+                    s.add(l);
+                    result.put(n, s);
+                } else {
+                    result.get(n).add(l);
+                }
             }
         }
         return result;

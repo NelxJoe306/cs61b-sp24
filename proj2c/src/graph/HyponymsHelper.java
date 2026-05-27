@@ -24,8 +24,9 @@ public class HyponymsHelper {
             }
             List<Integer> IDsOfWord = WTImap.get(word);
             List<String> hypoWords = new ArrayList<>();
+            Set<Integer> visited = new LinkedHashSet<>();
             for (int id : IDsOfWord) {
-                List<Integer> hypoIDs = grpTraversalOfIDs(id);
+                List<Integer> hypoIDs = grpTraversalOfIDs(id, visited);
                 for (int j : hypoIDs) {
                     hypoWords.addAll(ITWmap.get(j));
                 }
@@ -54,10 +55,15 @@ public class HyponymsHelper {
             }
             List<Integer> IDsOfWord = WTImap.get(word);
             List<String> hypoWords = new ArrayList<>();
+            Set<Integer> visited = new LinkedHashSet<>();
             for (int id : IDsOfWord) {
-                List<Integer> hypoIDs = grpInTraversalOfIDs(id);
-                for (int j : hypoIDs) {
-                    hypoWords.addAll(ITWmap.get(j));
+                List<Integer> ancestorIDs = new ArrayList<>();
+                if (!visited.contains(id)) {
+                    ancestorIDs = grpInTraversalOfIDs(id, visited);
+                    for (int j : ancestorIDs) {
+                        hypoWords.addAll(ITWmap.get(j));
+                    }
+                    visited.add(id);
                 }
             }
             Set<String> t = new LinkedHashSet<>(hypoWords);
@@ -77,26 +83,34 @@ public class HyponymsHelper {
     //return hyponyms' IDs
     //idea: getchildren to get nextHypos, add
     //if no hyponyms, return empty
-    public List<Integer> grpTraversalOfIDs(int id) {
+    public List<Integer> grpTraversalOfIDs(int id, Set<Integer> v) {
         List<Integer> hypoIDL = new ArrayList<>(List.of(id));
         List<Integer> childrenList = grp.getChildren(id);
         if (childrenList.isEmpty()) {
             return hypoIDL;
         } else {
             for (int i : childrenList) {
-                hypoIDL.addAll(grpTraversalOfIDs(i));
+                if (!v.contains(i)) {
+                    v.add(i);
+                    hypoIDL.addAll(grpTraversalOfIDs(i, v));
+                }
             }
         }
         return hypoIDL;
     }
 
-    public List<Integer> grpInTraversalOfIDs(int id) {
+    public List<Integer> grpInTraversalOfIDs(int id, Set<Integer> v) {
         List<Integer> hypoIDL = new ArrayList<>(List.of(id));
-        Integer ancestorsID = grp.getAncestors(id);
-        if (ancestorsID < 0) {
-            return hypoIDL;
-        } else {
-            hypoIDL.addAll(grpInTraversalOfIDs(ancestorsID));
+        List<Integer> ancestorsID = grp.getAncestors(id);
+        for (int i : ancestorsID) {
+            if (i < 0) {
+                return hypoIDL;
+            } else {
+                if (!v.contains(i)) {
+                    v.add(i);
+                    hypoIDL.addAll(grpInTraversalOfIDs(i, v));
+                }
+            }
         }
         return hypoIDL;
     }

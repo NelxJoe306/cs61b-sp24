@@ -140,7 +140,7 @@ public class NGramMap {
                 continue;
             } else {
                 TimeSeries t = this.weightHistory(word);
-                swt.plus(t);
+                swt = swt.plus(t);
             }
         }
         return swt;
