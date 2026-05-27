@@ -1,9 +1,14 @@
 import browser.NgordnetQuery;
 import browser.NgordnetQueryHandler;
 import browser.NgordnetQueryType;
+import graph.HyponymsHelper;
+import graph.wordNetGraph;
 import main.AutograderBuddy;
+import main.HyponymsHandler;
+import ngrams.NGramMap;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -31,7 +36,34 @@ public class TestCommonAncestors {
         assertThat(actual).isEqualTo(expected);
     }
 
-    // TODO: Add more unit tests (including edge case tests) here.
 
-    // TODO: Create similar unit test files for the k != 0 cases.
+    @Test
+    public void testInvsMap() {
+        wordNetGraph g = new wordNetGraph("./data/wordnet/hypoTest.txt");
+        System.out.print(g.invsList.toString()+"\n");
+        HyponymsHelper hhp = new HyponymsHelper("./data/wordnet/hypoTest.txt", "./data/wordnet/synsetTest.txt");
+        System.out.print(hhp.grpInTraversalOfIDs(6));
+        System.out.print(hhp.grpInTraversalOfIDs(0));
+    }
+    @Test
+    public void testInTra() {
+        String hypof = "./data/wordnet/hyponyms11.txt";
+        String synF = "./data./wordnet/synsets11.txt";
+        HyponymsHelper hhp = new HyponymsHelper(hypof, synF);
+        List<String> l = hhp.graphInTraversal(List.of("demotion"));
+        assertThat(l).containsExactly("action", "change",  "demotion");
+        l = hhp.graphInTraversal(List.of("demotion","change"));
+        assertThat(l).containsExactly("action", "change");
+        assertThat(l).isInOrder();
+    }
+
+    @Test
+    public void testKisNotZero() {
+        NGramMap ngr = new NGramMap(WORDS_FILE, TOTAL_COUNTS_FILE);
+        HyponymsHelper hhp = new HyponymsHelper("./data/wordnet/hypoTest.txt", "./data/wordnet/synsetTest.txt");
+        HyponymsHandler hh = new HyponymsHandler(hhp, ngr);
+
+        List<String> l = hh.handleK(Collections.singletonList("airport"),1, 2000,2001);
+        System.out.print(l.toString());
+    }
 }

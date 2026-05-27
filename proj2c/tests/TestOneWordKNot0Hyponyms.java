@@ -25,6 +25,4 @@ public class TestOneWordKNot0Hyponyms {
         String expected = "[CS170, CS61A, CS61B, CS61C]";
         assertThat(actual).isEqualTo(expected);
     }
-
-    // TODO: Add more unit tests (including edge case tests) here.
 }
