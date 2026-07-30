@@ -47,7 +47,7 @@ public class TestCommonAncestors {
         HyponymsHelper hhp = new HyponymsHelper("./data/wordnet/hypoTest.txt", "./data/wordnet/synsetTest.txt");
         System.out.print(hhp.grpInTraversalOfIDs(6, v));
         System.out.print(hhp.grpInTraversalOfIDs(0, v));
-    }
+        }
     @Test
     public void testInTra() {
         String hypof = "./data/wordnet/hyponyms11.txt";

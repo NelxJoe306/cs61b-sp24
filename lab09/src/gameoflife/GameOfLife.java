@@ -240,12 +240,37 @@ public class GameOfLife {
         // TODO: Implement this method so that the described transitions occur.
         // TODO: The current state is represented by TETiles[][] tiles and the next
         // TODO: state/evolution should be returned in TETile[][] nextGen.
-
-
-
-
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[0].length; j++) {
+                int n = getNeighbourNum(i, j, tiles);
+                if ((n == 2 || n == 3) && tiles[i][j].equals(Tileset.CELL)) {
+                    nextGen[i][j] = Tileset.CELL;
+                } else if (n == 3 && tiles[i][j].equals(Tileset.NOTHING)) {
+                    nextGen[i][j] = Tileset.CELL;
+                } else {
+                    nextGen[i][j] = Tileset.NOTHING;
+                }
+            }
+        }
         // TODO: Returns the next evolution in TETile[][] nextGen.
-        return null;
+        return nextGen;
+    }
+
+    public Integer getNeighbourNum(int x, int y, TETile[][] tiles) {
+        int num = 0;
+
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1; j++) {
+                if (i == x && j == y) {
+                    num += 0;
+                } else if (i >= 0 && i < tiles.length && j >= 0 && j < tiles[0].length) {
+                    if (tiles[i][j].equals(Tileset.CELL)) {
+                        num += 1;
+                    }
+                }
+            }
+        }
+        return num;
     }
 
     /**
@@ -268,14 +293,24 @@ public class GameOfLife {
     public void saveBoard() {
         // TODO: Save the dimensions of the board into the first line of the file.
         // TODO: The width and height should be separated by a space, and end with "\n".
-
-
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.valueOf(this.width)).append(" ").append(String.valueOf(this.height)).append("\n");
 
         // TODO: Save the current state of the board into save.txt. You should
         // TODO: use the provided FileUtils functions to help you. Make sure
         // TODO: the orientation is correct! Each line in the board should
         // TODO: end with a new line character.
-
+        for (int j = this.height - 1; j >= 0; j--) {
+            for (int i = 0; i < this.width; i++) {
+                if (currentState[i][j] == Tileset.CELL) {
+                    sb.append("1");
+                }else {
+                    sb.append("0");
+                }
+            }
+            sb.append("\n");
+        }
+        FileUtils.writeFile("src/save.txt", sb.toString());
 
 
 
@@ -288,24 +323,37 @@ public class GameOfLife {
      */
     public TETile[][] loadBoard(String filename) {
         // TODO: Read in the file.
-
+        FileUtils.fileExists(filename);
+        String l = FileUtils.readFile(filename);
         // TODO: Split the file based on the new line character.
-
+        String[] s = l.split("\n");
         // TODO: Grab and set the dimensions from the first line.
+        String[] dimensions = s[0].trim().split("\\s+");
+        int w = Integer.parseInt(dimensions[0]);
+        int h = Integer.parseInt(dimensions[1]);
 
+        this.width = w;
+        this.height = h;
         // TODO: Create a TETile[][] to load the board from the file into
         // TODO: and any additional variables that you think might help.
-
-
+        TETile[][] loadTET = new TETile[w][h];
         // TODO: Load the state of the board from the given filename. You can
         // TODO: use the provided builder variable to help you and FileUtils
         // TODO: functions. Make sure the orientation is correct!
-
-
-
+        for (int j = 1; j <= h; j++) {
+            int y = h - j;
+            for (int i = 0; i < w; i++) {
+                char c = s[j].charAt(i);
+                if (c == '1') {
+                    loadTET[i][y] = Tileset.CELL;
+                } else {
+                    loadTET[i][y] = Tileset.NOTHING;
+                }
+            }
+        }
 
         // TODO: Return the board you loaded. Replace/delete this line.
-        return null;
+        return loadTET;
     }
 
     /**
